@@ -1,3 +1,11 @@
+/*!
+ * Slide
+ * 自用简易版演示文稿组件
+ * @require jquery
+ * @require animate.css
+ * Copyright(c) 2013 Daniel Yang <miniflycn@gmail.com>
+ * MIT Licensed
+ */
 !function (root, $) {
 	'use strict';
 
@@ -6,6 +14,27 @@
 	var _index = -1, _step = 0;
 
 	$(window).on('hashchange', _check);
+
+	var callback = {
+		list: [],
+		isRun: false,
+		push: function (foo) {
+			var self = this;
+			self.list.push(foo);
+			!self.isRun && (self.isRun = true) && self._run();
+		},
+		_run: function () {
+			var foo = this.list.pop(),
+				self = this;
+			if (foo) {
+				foo(function () {
+					self._run();
+				});
+			} else {
+				self.isRun = false;
+			}
+		}
+	};
 
 	function _isdefine(o) {
 		return o !== undefined;
@@ -19,32 +48,40 @@
 		index = +hash[0];
 		step = +hash[1];
 		if (index !== oldIndex && typeof index === 'number' && typeof oldIndex === 'number') {
+			callback.push(_makeFlip(index, oldIndex));
+			oldStep = -1;
+		}
+		return _turn(index, oldStep, step, 0);
+	}
+
+	function _makeFlip(index, oldIndex) {
+		return function (cb) {
 			var $oldSlide = $('[data-slide="' + oldIndex + '"]'),
 				$newSlide = $('[data-slide="' + index + '"]');
 			if (index < oldIndex) {
 				$oldSlide.removeClass('in').addClass('right');
 				setTimeout(function () {
 					$oldSlide.removeClass('show right');
+					cb();
 				}, 1000);
 
 				$newSlide.addClass('show left');
 				setTimeout(function () {
-					$newSlide.removeClass('left').addClass('in');
+					$newSlide.removeClass('left').addClass('in show');
 				}, 100);
 			} else {
 				$oldSlide.removeClass('in').addClass('left');
 				setTimeout(function () {
 					$oldSlide.removeClass('show left');
+					cb();
 				}, 1000);
 
 				$newSlide.addClass('show right');
 				setTimeout(function () {
-					$newSlide.removeClass('right').addClass('in');
+					$newSlide.removeClass('right').addClass('in show');
 				}, 100);
 			}
-			oldStep = -1;
 		}
-		return _turn(index, oldStep, step, 0);
 	}
 
 	function _turn(index, now, until, timeout) {
