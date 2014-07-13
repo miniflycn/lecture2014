@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PPT</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link rel="stylesheet" href="./css/animate.min.css">
+<link rel="stylesheet" href="./styles/shCoreDefault.css"/>
+<style>
+@font-face {
+    font-family: 'Sniglet';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Sniglet Regular'), local('Sniglet-Regular'), url(fonts/sniglet.woff) format('woff');
+}
+</style>
+<style>
+/*Custom fonts - Sniglet and FontAwesome*/
+
+* {margin: 0; padding: 0;}
+html,
+body {
+    height: 100%;
+    background: #000000;
+    font: normal 18px Sniglet,"Microsoft Yahei",arial,\5b8b\4f53;
+    color: white; text-align: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*general styles*/
+h1 {font-weight: normal; font-size: 36px; margin-bottom: 75px;}
+.fun-cube {
+    padding-top: 400px;
+}
+.fun-cube i {-webkit-transform: scale(10); opacity: 0.1;}
+
+#cuboid {
+    width: 600px; margin: 0 auto;
+    /*this also makes #cuboid a container for absolutely positioned descendants*/
+    -webkit-perspective: 1000px;
+    position: relative;
+    top: -400px;
+    transition: opacity 0.35s;
+}
+#cuboid form {
+    /*counter translate*/
+    -webkit-transform: translateZ(-20px);
+    /*propogate 3d space for children*/
+    -webkit-transform-style: preserve-3d;
+    /*prevent height collapse as children are absolutely positioned*/
+    height: 600px;
+    /*for smooth animations*/
+    transition: all 0.35s;
+}
+
+.overturn {
+    height: 560px;
+    padding: 20px;
+}
+
+.overturn.blue {
+    background: #4499ee;
+}
+.overturn.yellow {
+    background: #ffbb1c;
+}
+.overturn.green {
+    background: #43a102;
+}
+.overturn.white {
+    background: #ffffff;
+}
+
+.overturn h2 {
+    line-height: 80px;
+    font-size: 45px;
+}
+
+.overturn p,
+.overturn li {
+    font-size: 30px;
+    text-align: left;
+}
+
+.overturn ul {
+    margin-left: 30px;
+}
+
+/*faces*/
+.cuboid-text {
+    /*each face will be 40px high*/
+    line-height: 40px;
+    /*height: 600px;*/
+    background: hsl(120, 40%, 20%);
+}
+.loader {
+    background: hsl(120, 40%, 30%);
+    -webkit-animation: phase 1s infinite;
+}
+/*Lets create a pulsating animation for the loader face*/
+@-webkit-keyframes phase {
+    50% {background: hsl(120, 70%, 30%);}
+}
+#email {
+    background: white; outline: none; border: 0 none;
+    font: inherit; text-align: left; color: hsl(120, 40%, 30%);
+    display: block; width: 100%; padding: 0 10px;
+    box-sizing: border-box;
+}
+#submit {display: none;}
+
+.submit-icon, .reset-icon {
+    position: absolute; top: 0; right: 0;
+    color: rgba(0, 0, 0, 0.25);
+    line-height: 40px; padding: 0 10px;
+    /*smooth transitions when user activates input and types something*/
+    transition: all 0.5s;
+    /*to make the icons feel like buttons*/
+    cursor: pointer;
+}
+/*.active = when the user is typing something*/
+.submit-icon.active {color: hsl(120, 40%, 30%);}
+.reset-icon {color: rgba(255, 255, 255, 0.25); font-size: 14px;}
+
+#cuboid div {position: absolute; top: 0; left: 0; width: 100%;}
+/*3D transforms. Each face will be rotated in multiples of -90deg and moved 20px(half of their 40px height) out*/
+#cuboid div:nth-child(1) {-webkit-transform: rotateX(0deg) translateZ(0px);}
+#cuboid div:nth-child(2) {-webkit-transform: rotateX(-90deg) translateZ(300px) translateY(300px);}
+#cuboid div:nth-child(3) {-webkit-transform: rotateX(-180deg) translateZ(600px)}
+#cuboid div:nth-child(4) {-webkit-transform: rotateX(-270deg) translateZ(300px) translateY(-300px);}
+
+/*the form will have 4 states/classes(default+3) for rotation*/
+#cuboid form.ready {-webkit-transform: translateY(-300px) translateZ(-300px) rotateX(90deg);}
+#cuboid form.loading {-webkit-transform: translateZ(-600px) rotateX(180deg);}
+#cuboid form.complete {
+    -webkit-transform: translateY(300px) translateZ(-300px) translateX(-150px) rotateX(270deg);
+    width: 900px;
+}
+
+/* my animate */
+@-webkit-keyframes moveUp {
+    0% {
+        -webkit-transform: none;
+        transform: none;
+    }
+    80% {
+        -webkit-transform: translate3d(0, -500px, 0);
+        transform: translate3d(0, -500px, 0);
+    }
+    100% {
+        -webkit-transform: scale(0.5) translate3d(0, -500px, 0);
+        transform: scale(0.5) translate3d(0, -500px, 0);
+    }
+}
+
+img.hide[data-animate="moveUp"] {
+    opacity: 1;
+}
+
+.moveUp {
+    -webkit-animation-name: moveUp;
+    animation-name: moveUp;
+}
+.moveUp.animated {
+    -webkit-animation-duration: 10s;
+    animation-duration: 10s;
+}
+
+/* slide */
+
+div.slide {
+    display: none;
+}
+
+div.slide.show {
+    display: inline-block;
+    transition: left 1s;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+div.slide.show.in {
+    left: 0;
+}
+
+div.slide.show.left {
+    left: -100%;
+}
+
+div.slide.show.right {
+    left: 100%;
+}
+
+.slide1 h2,
+.slide1 p {
+    color: #000;
+}
+.slide1 h2 {
+    margin-top: 160px;
+}
+
+.slide2 {
+    width: 860px;
+    height: 560px;
+    background: #ffffff;
+    margin: 100px auto;
+    padding: 20px;
+    color: #000000;
+}
+
+.slide2 h2 {
+    line-height: 80px;
+    font-size: 45px;
+}
+.slide2 h3 {
+    line-height: 60px;
+    font-size: 45px;
+}
+.slide2 p,
+.slide2 li {
+    font-size: 30px;
+    text-align: left;
+}
+.slide2 li p {
+    font-size: 20px;
+}
+.slide2 ul {
+    margin-left: 30px;
+}
+.slide2 li {
+    margin-bottom: 10px;
+}
+.slide2 .well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+.slide2 .well p {
+    font-size: 20px;
+}
+
+.slide3 img {
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.slide3 h3 {
+    font-size: 120px;
+    color: #e73f00;
+    z-index: 100;
+    position: relative;
+}
+
+.slide4 h2 {
+    font-size: 200px;
+    line-height: 600px;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.opacity50 {
+    opacity: .5;
+} 
+</style>
+
+</head>
+
+<body>
+<div class="slide" data-slide="0">
+    <div class="fun-cube">
+        <i class="fa fa-cube"></i>
+    </div>
+    <h1>基于PhantomJS的自动化探索</h1>
+    <div id="cuboid" class="hide">
+        <form id="cube">
+            <!-- #1 hover button -->
+            <div class="overturn blue">
+                <h2>About Us</h2>
+                <p>腾讯Web前端团队 – IMWEB Team来自于腾讯SNG(社交网络事业群)，目前主要负责腾讯课堂项目，志在为中国教育事业奉献一份力量，我们致力于Web前端技术的研究，热衷HTML5技术，用最酷的新技术开发各种有趣的开源项目。</p>
+            </div>
+            <!-- #2 text input -->
+            <div class="overturn yellow">
+                <h2>About Me</h2>
+                <p>Daniel Yang...................................</p>
+            </div>
+            <!-- #3 loading message -->
+            <div class="overturn green loader">
+                <h2>Summary</h2>
+                <ul>
+                    <li>什么是PhantomJS</li>
+                    <li>PhantomJS能做些什么？</li>
+                    <li>PhantomJS在我们团队的应用</li>
+                </ul>
+            </div>
+            <!-- #4 success message -->
+            <div class="overturn white slide1">
+                <h2>什么是PhantomJS</h2>
+                <p>PhantomJS是可使用Javascript API进行编程的Headless Webkit浏览器，高效支持各种Web标准，如：DOM处理、CSS选择器、JSON、Canvas、SVG等等。</p>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="slide" data-slide="1">
+    <div class="slide3">
+        <h3 class="hide" data-animate="bounceIn">Headless?</h3>
+        <h3 class="hide" data-animate="bounceIn">无头？？？</h3>
+        <h3 class="hide" data-animate="bounceIn">无界面并非无头!</h3>
+        <img id="headless0" src="./img/headless.jpg"/>
+    </div>
+</div>
+<div class="slide" data-slide="2">
+    <div class="slide2">
+        <h2>那么PhantomJS有啥用呢？</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">无界面网站测试：<p>利用Mocha、Jasmine等测试框架进行自动化功能测试。</p></li>
+            <li class="hide" data-animate="fadeIn">网站截图：<p>得到页面的内容，创建页面的截图或者缩略图预览。</p></li>
+            <li class="hide" data-animate="fadeIn">页面自动化：<p>访问和操作页面的DOM API等Javascript API，并可以支持jQuery之类的浏览器端框架。</p></li>
+            <li class="hide" data-animate="fadeIn">页面监控：<p>自动化监控页面载入，并输出标准的HAR文件，用于自动化性能分析。</p></li>
+        </ul>
+    </div>
+</div>
+<div class="slide" data-slide="3">
+    <div class="slide2">
+        <h2>前端自动化测试</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">UI测试是很难进行的：
+                <p>页面变化太快，基于像素的自动化测试虽然可以实现，但通常成本过高，难以实行。</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">对核心模块进行单元测试：
+                <p>核心模块变化较小，API通常不会大幅变化，自动化测试成本较小，通常可以看成黑盒进行黑盒测试。</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">充分利用开源界力量：
+                <p>开源界有许多可以利用的资源，例如：CI(持续集成系统)、测试覆盖率系统</p>
+            </li>
+        </ul>
+        <h3 class="hide" data-animate="bounceInUp">Let's go!!!!!!!!!!</h3>
+    </div>
+</div>
+<div class="slide" data-slide="4">
+    <div class="slide2">
+        <h2>主要用到的东东</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">grunt</li>
+            <li class="hide" data-animate="fadeIn">mocha</li>
+            <li class="hide" data-animate="fadeIn">chai</li>
+            <li class="hide" data-animate="fadeIn">grunt-mocha-phantomjs</li>
+        </ul>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            {
+                "name": "test",
+                "devDependencies": {
+                    "grunt": "*",
+                    "grunt-mocha-phantomjs": "~0.4.0",
+                    "grunt-contrib-concat": "~0.3.0"
+                },
+                "scripts": {
+                    "test": "grunt report"
+                }
+            }
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="5">
+    <div class="slide2">
+        <h2>一个简单的测试用例</h2>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            describe('data', function () {
+                describe('#cache', function () {
+                    it('should able to get the same cache', function () {
+                        expect(Data(obj).cache).to.equal(Data(obj).cache);
+                    });
+                })
+
+                describe('#set() & get()', function () {
+                    it('should able to set and get data', function () {
+                        var data = Data(obj);
+                        data.set('test', 'test');
+                        expect(data.get('test')).to.equal('test');
+                    });
+                });
+
+                describe('#remove()', function () {
+                    it('should able to remove a data', function () {
+                        var data = Data(obj);
+                        data.set('test', 'test');
+                        expect(data.remove('test')).to.equal('test');
+                        expect(data.get('test')).to.equal(undefined);
+                    });
+                });
+            });
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="6">
+    <div class="slide2">
+        <h2>引用测试用例的页面</h2>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: php;">
+            &lt;html>
+            &lt;head>
+                &lt;meta charset="utf-8">
+                &lt;link rel="stylesheet" href="css/mocha.css"/>
+            &lt;/head>
+            &lt;body>
+            &lt;div id="mocha">&lt;/div>
+            &lt;script src="js/dwarf.min.js">&lt;/script>
+            &lt;script src="js/chai.js">&lt;/script>
+            &lt;script src="js/mocha.js">&lt;/script>
+            &lt;script>
+                mocha.ui('bdd');
+                mocha.reporter('html');
+                expect = chai.expect;
+            &lt;/script>
+            &lt;script src="cases/data.js">&lt;/script>
+            &lt;script>
+                setTimeout(function () {
+                    if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+                    else { mocha.run(); }
+                }, 100);
+            &lt;/script>
+            &lt;/body>
+            &lt;/html>
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="7">
+    <div class="slide2">
+        <h2>Gruntfile.js</h2>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            module.exports = function( grunt ) {
+                'use strict';
+
+                grunt.initConfig({
+                    mocha_phantomjs: {
+                        report: {
+                            options: {
+                                'reporter': 'xunit',
+                                'output': 'tests/results/result.xml',
+                                urls: ['tests/tests.html']
+                            }
+                        },
+                        all: ['tests/*.html']
+                    }
+                });
+
+                grunt.loadNpmTasks('grunt-mocha-phantomjs');
+                grunt.registerTask('test', ['mocha_phantomjs:all']);
+                grunt.registerTask('report', ['mocha_phantomjs:report']);
+            };
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="8">
+    <div class="slide2">
+        <h2>我们有什么办法给网站截图？</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">用截图软件，例如QQ：
+                <p>给比较长的网页截图时候，只能手动拼接来输出整个页面</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">html2canvas：
+                <p>非浏览器原生，利用canvas将当前页面画出来，可能有些CSS样式不支持</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">IECapt：
+                <p>利用IE内核，不能跨平台</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">使用PhantomJS：
+                <p>原生支持，非常快，输出的是Webkit浏览器的真实效果</p>
+            </li>
+        </ul>
+        <h3 class="hide" data-animate="bounceInUp">Let's go!!!!!!!!!!</h3>
+    </div>
+</div>
+<div class="slide" data-slide="9">
+    <div class="slide2">
+        <h2>简单的截图例子</h2>
+        <p class="hide" data-animate="fadeIn">创建test.js：</p>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            var page = require('webpage').create();
+            page.open('http://ke.qq.com/', function() {
+                page.render('ke.png');
+                phantom.exit();
+            });
+            </pre>
+        </div>
+        <p class="hide" data-animate="fadeIn">然后只需在终端运行：$phantomjs test.js</p>
+        <h3 class="hide" data-animate="bounceInUp">深挖一下，如何建一个截图服务呢？？？</h3>
+    </div>
+</div>
+<div class="slide" data-slide="10">
+    <div class="slide2">
+        <h2>NodeJS和PhantomJS通讯的问题</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">命令行传参：
+                <p>例如：$phantomjs snapshot.js http://www.baidu.com，命令行传参只能在PhantomJS启动时进行，运行过程中就无能为力了</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">标准输出：
+                <p>标准输出能从PhantomJS向NodeJS输出数据，但却没法从NodeJS传数据给PhantomJS。不过测试中表明，标准输出时这几种方式中传输最快的，在大量数据传输中应当考虑。</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">HTTP：
+                <p>PhantomJS向NodeJS进行轮询，NodeJS返回指令。这种方法很简单，但是请求只能由PhantomJS发出</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">Websocket：
+                <p>值得注意的是PhantomJS 1.9.0支持Websocket了，不过可惜是hixie-76 Websocket，但至少提供了双向通讯的方式</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">phantomjs-node：
+                <p>phantomjs-node成功将PhantomJS作为NodeJS的一个模块来使用，看似很美好，可是...</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="slide" data-slide="11">
+    <div class="slide2">
+        <h2>No really, how does it work?</h2>
+        <div class="well hide" data-animate="fadeIn">
+            <p>I will answer that question with a question. How do you communicate with a process that doesn't support shared memory, sockets, FIFOs, or standard input?</p>
+            <p>Well, there's one thing PhantomJS does support, and that's opening webpages. In fact, it's really good at opening web pages. So we communicate with PhantomJS by spinning up an instance of ExpressJS, opening Phantom in a subprocess, and pointing it at a special webpage that turns socket.io messages into alert()calls. Those alert() calls are picked up by Phantom and there you go!</p>
+            <p>The communication itself happens via James Halliday's fantastic dnode library, which fortunately works well enough when combined with browserify to run straight out of PhantomJS's pidgin Javascript environment.</p>
+        </div>
+        <p class="hide" data-animate="fadeIn">实际上phantomjs-node使用的也是HTTP或者Websocket来进行通讯</p>
+    </div>
+</div>
+<div class="slide" data-slide="12">
+    <div class="slide2">
+        <h2>url-extract——NodeJS截图模块</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">url-extract在初始化时创建多个PhantomJS进程，通过WebSocket将截图任务分派到各个PhantomJS进程进行处理，任务做完后再通过标准输出回传数据。</li>
+            <li class="hide" data-animate="fadeIn">所以，如果你的应用可能会产生大量截图操作，那么url-extract或许是个好选择。</li>
+            <li class="hide" data-animate="fadeIn">简单例子：
+                <div class="hide" data-animate="zoomIn">
+                    <pre class="brush: js;">
+                    // 初始化
+                    var ue = require('url-extract')();
+                    // 截图并保存在 ./snapshot/nodejs.png
+                    ue.snapshot('http://www.nodejs.org', 
+                        './snaphost/nodejs.png');
+                    </pre>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="slide" data-slide="13">
+    <div class="slide2">
+        <h2>如何设计的？</h2>
+        <img data-animate="moveUp" src="./img/design.jpg" />
+    </div>
+</div>
+<div class="slide" data-slide="14">
+    <div class="slide2">
+        <h2>性能如何？</h2>
+    </div>
+</div>
+<div class="slide" data-slide="15">
+    <div class="slide2">
+        <h2>利用PhantomJS自动化分析CSS冗余</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">怎么分析CSS冗余？
+                <p class="hide" data-animate="fadeIn">实际上，只需要用DOM和CSS对照就能分析出可能存在的CSS冗余，如果我们能得到一个页面的所有可能状态的DOM结构，就能分析出CSS确切的冗余</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">怎么获取DOM结构？
+                <p class="hide" data-animate="fadeIn">幸运的是，只要告诉PhantomJS获取DOM结构的时机，我们就可以得到当时的DOM结构</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">之后呢？
+                <p class="hide" data-animate="fadeIn">cheerio为我们提供了服务器端高速jQuery实现，简化了对DOM的选择器查询。而css-parse、css-stringify提供给我们分析与生成CSS的方式。</p>
+            </li>
+        </ul>
+        <h3 class="hide" data-animate="bounceInUp">于是就有了css-redundance——一个快速分析CSS冗余的工具。</h3>
+    </div>
+</div>
+<div class="slide" data-slide="16">
+    <div class="slide2">
+        <h2>简单例子</h2>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            var red = require('css-redundance');
+
+            // 入口是http://ke.qq.com
+            red('http://ke.qq.com', {
+                // 忽略掉满足该正则的css文件
+                // 因为common.min.css是公共库
+                ignore: /common\.min\..*?\.css$/
+            });
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="17">
+    <div class="slide2">
+        <h2>输出报告</h2>
+    </div>
+</div>
+<div class="slide" data-slide="18">
+    <div class="slide2">
+        <h2>SEO</h2>
+    </div>
+</div>
+<div class="slide" data-slide="19">
+    <div class="slide4">
+        <h2>Question</h2>
+    </div>
+</div>
+
+<script src="http://1.url.cn/jslib/jquery/1.9.1/jquery.min.js"></script>
+<script src="./js/hash.js"></script>
+<script src="./scripts/shCore.js"></script>
+<script src="./scripts/shBrushJScript.js"></script>
+<script src="./scripts/shBrushPhp.js"></script>
+<script>
+    SyntaxHighlighter.all();
+
+    Slide
+        // cover
+        .slide()
+            .step(function () {
+                    $('#cuboid').removeClass('hide');
+                }, function () {
+                    $('#cuboid').addClass('hide');
+                })
+            .step(function () {
+                    $('#cube').addClass('ready');
+                }, function () {
+                    $('#cube').removeClass('ready');
+                })
+            .step(function () {
+                    $('#cube').addClass('loading');
+                }, function () {
+                    $('#cube').removeClass('loading');
+                })
+            .step(function () {
+                    $('#cube').addClass('complete');
+                }, function () {
+                    $('#cube').removeClass('complete');
+                })
+        // start
+        .slide()
+            .step(function () {
+                    $('#headless0').addClass('opacity50');
+                }, function () {
+                    $('#headless0').removeClass('opacity50');
+                })
+        .init();
+</script>
+</body>
+</html>
