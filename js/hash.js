@@ -54,7 +54,6 @@
 			(stepAction = stepMap[now--]) && stepAction[1] && stepAction[1]();
 		} else {
 			(stepAction = stepMap[++now]) && stepAction[0] && stepAction[0]();
-			console.log(stepAction)
 		}
 		clearTimeout(turnTimeout);
 		if (timeout) {
@@ -106,6 +105,34 @@
 			e.which === 37 && _left();
 			e.which === 39 && _right();
 		});
+
+		$(document.body).on('touchstart', _startEvtHandler)
+						.on('touchmove', _moveEvtHandler)
+						.on('touchend', _endEvtHandler)
+	}
+
+	function _getTouchPos(e) {
+		var t = e.originalEvent.touches[0];
+		return { x: t.clientX, y: t.clientY };
+	}
+
+	var _startPos, _curPos, _endPos;
+	function _startEvtHandler(e) {
+		_startPos = _getTouchPos(e);
+	}
+
+	function _moveEvtHandler(e) {
+		e.preventDefault();
+		_curPos = _getTouchPos(e);
+	}
+
+	function _endEvtHandler(e) {
+		_endPos = _curPos;
+		var dx = _endPos.x - _startPos.y,
+			dy = -_endPos.y + _startPos.y,
+			angle = Math.atan2(dy, dx) * 180 / Math.PI;
+		if (angle < 45 && angle > -45) return _left();
+		if (angle >= 135 || angle < -135) return _right();
 	}
 
 	function init() {
