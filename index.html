@@ -489,6 +489,27 @@ div.slide.show.right {
 </div>
 <div class="slide" data-slide="8">
     <div class="slide2">
+        <h2>利用Travis CI进行自动化测试</h2>
+        <p class="hide" data-animate="fadeIn">.travis.yml：</p>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            language: node_js
+            node_js:
+              - "0.10"
+            before_script:
+              - npm install -g grunt-cli
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="9">
+    <div class="slide2">
+        <h2>Travis CI效果</h2>
+        <img width="800" src="./img/travis.png" />
+    </div>
+</div>
+<div class="slide" data-slide="10">
+    <div class="slide2">
         <h2>我们有什么办法给网站截图？</h2>
         <ul>
             <li class="hide" data-animate="fadeIn">用截图软件，例如QQ：
@@ -507,7 +528,7 @@ div.slide.show.right {
         <h3 class="hide" data-animate="bounceInUp">Let's go!!!!!!!!!!</h3>
     </div>
 </div>
-<div class="slide" data-slide="9">
+<div class="slide" data-slide="11">
     <div class="slide2">
         <h2>简单的截图例子</h2>
         <p class="hide" data-animate="fadeIn">创建test.js：</p>
@@ -524,7 +545,7 @@ div.slide.show.right {
         <h3 class="hide" data-animate="bounceInUp">深挖一下，如何建一个截图服务呢？？？</h3>
     </div>
 </div>
-<div class="slide" data-slide="10">
+<div class="slide" data-slide="12">
     <div class="slide2">
         <h2>NodeJS和PhantomJS通讯的问题</h2>
         <ul>
@@ -546,7 +567,7 @@ div.slide.show.right {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="11">
+<div class="slide" data-slide="13">
     <div class="slide2">
         <h2>No really, how does it work?</h2>
         <div class="well hide" data-animate="fadeIn">
@@ -557,7 +578,7 @@ div.slide.show.right {
         <p class="hide" data-animate="fadeIn">实际上phantomjs-node使用的也是HTTP或者Websocket来进行通讯</p>
     </div>
 </div>
-<div class="slide" data-slide="12">
+<div class="slide" data-slide="14">
     <div class="slide2">
         <h2>url-extract——NodeJS截图模块</h2>
         <ul>
@@ -577,18 +598,18 @@ div.slide.show.right {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="13">
+<div class="slide" data-slide="15">
     <div class="slide2">
         <h2>如何设计的？</h2>
         <img data-animate="moveUp" src="./img/design.jpg" />
     </div>
 </div>
-<div class="slide" data-slide="14">
+<div class="slide" data-slide="16">
     <div class="slide2">
         <h2>性能如何？</h2>
     </div>
 </div>
-<div class="slide" data-slide="15">
+<div class="slide" data-slide="17">
     <div class="slide2">
         <h2>利用PhantomJS自动化分析CSS冗余</h2>
         <ul>
@@ -605,7 +626,7 @@ div.slide.show.right {
         <h3 class="hide" data-animate="bounceInUp">于是就有了css-redundance——一个快速分析CSS冗余的工具。</h3>
     </div>
 </div>
-<div class="slide" data-slide="16">
+<div class="slide" data-slide="18">
     <div class="slide2">
         <h2>简单例子</h2>
         <div class="hide" data-animate="zoomIn">
@@ -623,25 +644,25 @@ div.slide.show.right {
         <p class="hide" data-animate="fadeIn">输出的<a href="./example/review.html" target="_blank">报告效果>>>></a></p>
     </div>
 </div>
-<div class="slide" data-slide="17">
+<div class="slide" data-slide="19">
     <div class="slide2">
         <h2>输出报告</h2>
     </div>
 </div>
-<div class="slide" data-slide="18">
+<div class="slide" data-slide="20">
     <div class="slide2">
         <h2>SEO</h2>
         <p class="hide" data-animate="fadeIn">AJAX站点盛行的今天，SEO成为各AJAX站点心中的痛，由于数据在页面加载后通过AJAX产生，爬虫无法通过直接抓去页面得到网站的所有信息，往往这些网站的SEO只能用惨不忍睹来形容。</p>
         <p class="hide" data-animate="fadeIn">对于搜索引擎的老大 —— Google，也很是头疼，他们提出了一种AJAX页面的抓去方案。</p>
     </div>
 </div>
-<div class="slide" data-slide="19">
+<div class="slide" data-slide="21">
     <div class="slide2">
         <h2>Google的方案</h2>
         <img class="hide" data-animate="fadeIn" src="./img/google.png">
     </div>
 </div>
-<div class="slide" data-slide="20">
+<div class="slide" data-slide="22">
     <div class="slide2">
         <h2>Google的方案</h2>
         <ul>
@@ -658,14 +679,14 @@ div.slide.show.right {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="21">
+<div class="slide" data-slide="23">
     <div class="slide2">
         <h2>SEO Server</h2>
         <img class="hide" data-animate="fadeIn" src="./img/seoserver.png">
         <p class="hide" data-animate="fadeIn">通过User Agent分辨正常用户还是爬虫，将爬虫转给SEO Server，让SEO Server返回指定页面的快照</p>
     </div>
 </div>
-<div class="slide" data-slide="22">
+<div class="slide" data-slide="24">
     <div class="slide2">
         <h2>简单快照生成</h2>
         <div class="hide" data-animate="zoomIn">
@@ -697,7 +718,7 @@ div.slide.show.right {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="23">
+<div class="slide" data-slide="25">
     <div class="slide2">
         <h2>PhantomJS输出DOM的时机</h2>
         <p class="hide" data-animate="fadeIn">由于页面绘制完成时间并非DOM onload事件触发时间，我们没有合适的基准点来让PhantomJS输出DOM，所以有下面两种方案解决这一问题：</p>
@@ -707,13 +728,13 @@ div.slide.show.right {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="24">
+<div class="slide" data-slide="26">
     <div class="slide2">
         <h2>或许有更好的方案……</h2>
         <p class="hide" data-animate="fadeIn">PhantomJS提供了<code>onResourceRequested</code>，<code>onResourceReceived</code>接口，使得我们能监听到资源加载的情况，在通过合适的检查时间来找到最适合的PhantomJS输出DOM的时机。</p>
     </div>
 </div>
-<div class="slide" data-slide="25">
+<div class="slide" data-slide="27">
     <div class="slide4">
         <h2>Question</h2>
     </div>
