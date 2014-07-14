@@ -76,6 +76,12 @@ h1 {font-weight: normal; font-size: 36px; margin-bottom: 75px;}
     line-height: 80px;
     font-size: 45px;
 }
+.overturn h2 a {
+    color: #000000;
+}
+.overturn h2 a:hover {
+    opacity: 0.5;
+}
 
 .overturn p,
 .overturn li {
@@ -292,7 +298,7 @@ div.slide.show.right {
         <form id="cube">
             <!-- #1 hover button -->
             <div class="overturn blue">
-                <h2>About Us</h2>
+                <h2>About Us <a href="https://github.com/QQEDU" target="_blank"><i class="fa fa-github"></i></a></h2>
                 <p>腾讯Web前端团队 —— IMWEB Team，来自于腾讯SNG(社交网络事业群)，目前主要负责腾讯课堂项目，志在为中国教育事业奉献一份力量。</p>
                 <p>我们致力于Web前端技术的研究，热衷HTML5技术，志在成为中国优秀的前端团队。</p>
             </div>
@@ -301,7 +307,7 @@ div.slide.show.right {
                 <h2>About Me</h2>
                 <p>Daniel Yang | Font-end Engineer</p>
                 <p class="social">
-                    <i class="fa fa-qq"></i>
+                    <a href="mailto:miniflycn@justany.net"><i class="fa fa-paper-plane-o"></i></a>
                     <a href="https://github.com/miniflycn" target="_blank"><i class="fa fa-github"></i></a>
                     <a href="http://cn.linkedin.com/pub/daniel-yang/69/307/b6b" target="_blank"><i class="fa fa-linkedin-square"></i></a>
                 </p>
@@ -614,6 +620,7 @@ div.slide.show.right {
             });
             </pre>
         </div>
+        <p class="hide" data-animate="fadeIn">输出的<a href="./example/review.html" target="_blank">报告效果>>>></a></p>
     </div>
 </div>
 <div class="slide" data-slide="17">
@@ -624,9 +631,89 @@ div.slide.show.right {
 <div class="slide" data-slide="18">
     <div class="slide2">
         <h2>SEO</h2>
+        <p class="hide" data-animate="fadeIn">AJAX站点盛行的今天，SEO成为各AJAX站点心中的痛，由于数据在页面加载后通过AJAX产生，爬虫无法通过直接抓去页面得到网站的所有信息，往往这些网站的SEO只能用惨不忍睹来形容。</p>
+        <p class="hide" data-animate="fadeIn">对于搜索引擎的老大 —— Google，也很是头疼，他们提出了一种AJAX页面的抓去方案。</p>
     </div>
 </div>
 <div class="slide" data-slide="19">
+    <div class="slide2">
+        <h2>Google的方案</h2>
+        <img class="hide" data-animate="fadeIn" src="./img/google.png">
+    </div>
+</div>
+<div class="slide" data-slide="20">
+    <div class="slide2">
+        <h2>Google的方案</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">其要求所有需要通过ajax crawling抓取的AJAX页面必须以#!为锚点，即原来页面为：
+                <p>www.example.com/ajax.html#key=value</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">如果要使用ajax crawling，则需要将链接变成：
+                <p>www.example.com/ajax.html#!key=value</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">但如果爬虫直接请求这个链接是不行的，因为hash是无法带到服务器（即服务器只会获取到www.example.com/ajax.html这个地址，无法得到#!key=value这个值）的，所以google爬虫会转而抓另一个地址：
+                <p>www.example.com/ajax.html?escaped_fragment=key=value</p>
+            </li>
+            <li class="hide" data-animate="fadeIn">然后google期望该地址返回的是一个该页面完成虽然之后的DOM快照。</li>
+        </ul>
+    </div>
+</div>
+<div class="slide" data-slide="21">
+    <div class="slide2">
+        <h2>SEO Server</h2>
+        <img class="hide" data-animate="fadeIn" src="./img/seoserver.png">
+        <p class="hide" data-animate="fadeIn">通过User Agent分辨正常用户还是爬虫，将爬虫转给SEO Server，让SEO Server返回指定页面的快照</p>
+    </div>
+</div>
+<div class="slide" data-slide="22">
+    <div class="slide2">
+        <h2>简单快照生成</h2>
+        <div class="hide" data-animate="zoomIn">
+            <pre class="brush: js;">
+            var connect = require('connect')
+              , dom = require('url-dom')
+              , valid = require('url-valid')
+              , URL = require('url');
+
+            connect()
+              .use(function (req, res, next) {
+                var url = URL.resolve('http://ke.qq.com', req.url);
+                // 看看该地址是否存在
+                valid(url).on('check', function (err, valid) {
+                  // 不存在则退出
+                  if (err || !valid) return next(err);
+                  // 否则利用url-dom抓去DOM节点
+                  dom(url).success(function ($) {
+                    // 将DOM中的所有script标签移除，避免多次执行
+                    $('script').remove();
+                    res.end($.html());
+                  }).fail(function () {
+                    next(err);
+                  });
+                })
+              })
+              .listen(3000);
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="slide" data-slide="23">
+    <div class="slide2">
+        <h2>PhantomJS输出DOM的时机</h2>
+        <p class="hide" data-animate="fadeIn">由于页面绘制完成时间并非DOM onload事件触发时间，我们没有合适的基准点来让PhantomJS输出DOM，所以有下面两种方案解决这一问题：</p>
+        <ul>
+            <li class="hide" data-animate="fadeIn">对所有页面改造，在逻辑上确定页面渲染完毕后回调一个方法，然后利用PhantomJS预先注册该方法，找到合适的渲染时机。该方案比较精确但改造成本较高。</li>
+            <li class="hide" data-animate="fadeIn">对所有页面改造，在逻辑上确定页面渲染完毕后回调一个方法，然后利用PhantomJS预先注册该方法，找到合适的渲染时机。该方案比较精确但改造成本较高。</li>
+        </ul>
+    </div>
+</div>
+<div class="slide" data-slide="24">
+    <div class="slide2">
+        <h2>或许有更好的方案……</h2>
+        <p class="hide" data-animate="fadeIn">PhantomJS提供了<code>onResourceRequested</code>，<code>onResourceReceived</code>接口，使得我们能监听到资源加载的情况，在通过合适的检查时间来找到最适合的PhantomJS输出DOM的时机。</p>
+    </div>
+</div>
+<div class="slide" data-slide="25">
     <div class="slide4">
         <h2>Question</h2>
     </div>
