@@ -95,6 +95,11 @@ div.slide.show.right {
     line-height: 600px;
 }
 
+.slide5 h2 {
+    font-size: 80px;
+    line-height: 600px;
+}
+
 .hide {
     opacity: 0;
 }

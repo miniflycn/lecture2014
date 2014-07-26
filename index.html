@@ -200,7 +200,7 @@ img.hide[data-animate="moveUp"] {
             <div class="overturn blue">
                 <h2>About Us <a href="https://github.com/QQEDU" target="_blank"><i class="fa fa-github"></i></a></h2>
                 <p>腾讯Web前端团队 —— IMWEB Team，来自于腾讯SNG(社交网络事业群)，目前主要负责腾讯课堂项目，志在为中国教育事业奉献一份力量。</p>
-                <p>我们致力于Web前端技术的研究，热衷HTML5技术，志在成为中国优秀的前端团队。</p>
+                <p>我们热爱Web技术，梦想是成为中国优秀的前端团队。</p>
             </div>
             <!-- #2 text input -->
             <div class="overturn yellow">
@@ -250,8 +250,18 @@ img.hide[data-animate="moveUp"] {
     </div>
 </div>
 <div class="slide" data-slide="3">
+    <div class="slide5">
+        <h2>利用PhantomJS进行自动化测试</h2>
+    </div>
+</div>
+<div class="slide" data-slide="4">
     <div class="slide2">
-        <h2>前端自动化测试</h2>
+        <h2>Why</h2>
+        <ul>
+            <li class="hide" data-animate="fadeIn">为了保证核心组件的健壮性及可用性</li>
+            <li class="hide" data-animate="fadeIn">保证向后兼容，减少组件更新后产生bug</li>
+        </ul>
+        <h2>How</h2>
         <ul>
             <li class="hide" data-animate="fadeIn">UI测试是很难进行的：
                 <p>页面变化太快，基于像素的自动化测试虽然可以实现，但通常成本过高，难以实行。</p>
@@ -263,10 +273,9 @@ img.hide[data-animate="moveUp"] {
                 <p>开源界有许多可以利用的资源，例如：CI(持续集成系统)、测试覆盖率系统</p>
             </li>
         </ul>
-        <h3 class="hide" data-animate="bounceInUp">Let's go!!!!!!!!!!</h3>
     </div>
 </div>
-<div class="slide" data-slide="4">
+<div class="slide" data-slide="5">
     <div class="slide2">
         <h2>主要用到的东东</h2>
         <ul>
@@ -292,7 +301,7 @@ img.hide[data-animate="moveUp"] {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="5">
+<div class="slide" data-slide="6">
     <div class="slide2">
         <h2>一个简单的测试用例</h2>
         <div class="hide" data-animate="zoomIn">
@@ -325,7 +334,7 @@ img.hide[data-animate="moveUp"] {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="6">
+<div class="slide" data-slide="7">
     <div class="slide2">
         <h2>引用测试用例的页面</h2>
         <div class="hide" data-animate="zoomIn">
@@ -358,7 +367,7 @@ img.hide[data-animate="moveUp"] {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="7">
+<div class="slide" data-slide="8">
     <div class="slide2">
         <h2>Gruntfile.js</h2>
         <div class="hide" data-animate="zoomIn">
@@ -387,7 +396,7 @@ img.hide[data-animate="moveUp"] {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="8">
+<div class="slide" data-slide="9">
     <div class="slide2">
         <h2>利用Travis CI进行自动化测试</h2>
         <p class="hide" data-animate="fadeIn">.travis.yml：</p>
@@ -402,13 +411,26 @@ img.hide[data-animate="moveUp"] {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="9">
+<div class="slide" data-slide="10">
     <div class="slide2">
         <h2>Travis CI效果</h2>
-        <img width="800" src="./img/travis.png" />
+        <a href="https://travis-ci.org/dwarfJS/webkit-dwarf-simple" target="_blank">
+            <img width="800" src="./img/travis.png" />
+        </a>
     </div>
 </div>
-<div class="slide" data-slide="10">
+<div class="slide" data-slide="11">
+    <div class="slide2">
+        <h2>Sample</h2>
+        <a href="/Users/apple/webkit-dwarf-simple" target="_blank">webkit-dwarf-simple</a>
+    </div>
+</div>
+<div class="slide" data-slide="12">
+    <div class="slide5">
+        <h2>利用PhantomJS进行截图</h2>
+    </div>
+</div>
+<div class="slide" data-slide="13">
     <div class="slide2">
         <h2>我们有什么办法给网站截图？</h2>
         <ul>
@@ -428,7 +450,7 @@ img.hide[data-animate="moveUp"] {
         <h3 class="hide" data-animate="bounceInUp">Let's go!!!!!!!!!!</h3>
     </div>
 </div>
-<div class="slide" data-slide="11">
+<div class="slide" data-slide="14">
     <div class="slide2">
         <h2>简单的截图例子</h2>
         <p class="hide" data-animate="fadeIn">创建test.js：</p>
@@ -442,10 +464,11 @@ img.hide[data-animate="moveUp"] {
             </pre>
         </div>
         <p class="hide" data-animate="fadeIn">然后只需在终端运行：$phantomjs test.js</p>
-        <h3 class="hide" data-animate="bounceInUp">深挖一下，如何建一个截图服务呢？？？</h3>
+        <p class="hide" data-animate="fadeIn">可是我们的需求是建立一个截图服务，对多个网站进行截图，而PhantomJS本身不能建立Web服务，这就需要用另一门语言来解决问题，在此我们选择NodeJS。</p>
+        <p class="hide" data-animate="fadeIn">可是NodeJS怎么通知PhantomJS要截哪个网站，PhantomJS又如何告知NodeJS我截图完成了呢？</p>
     </div>
 </div>
-<div class="slide" data-slide="12">
+<div class="slide" data-slide="15">
     <div class="slide2">
         <h2>NodeJS和PhantomJS通讯的问题</h2>
         <ul>
@@ -467,7 +490,7 @@ img.hide[data-animate="moveUp"] {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="13">
+<div class="slide" data-slide="16">
     <div class="slide2">
         <h2>No really, how does it work?</h2>
         <div class="well hide" data-animate="fadeIn">
@@ -478,7 +501,7 @@ img.hide[data-animate="moveUp"] {
         <p class="hide" data-animate="fadeIn">实际上phantomjs-node使用的也是HTTP或者Websocket来进行通讯</p>
     </div>
 </div>
-<div class="slide" data-slide="14">
+<div class="slide" data-slide="17">
     <div class="slide2">
         <h2>url-extract——NodeJS截图模块</h2>
         <ul>
@@ -498,18 +521,23 @@ img.hide[data-animate="moveUp"] {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="15">
+<div class="slide" data-slide="18">
     <div class="slide2">
         <h2>如何设计的？</h2>
         <img data-animate="moveUp" src="./img/design.jpg" />
     </div>
 </div>
-<div class="slide" data-slide="16">
+<div class="slide" data-slide="19">
     <div class="slide2">
         <h2>性能如何？</h2>
     </div>
 </div>
-<div class="slide" data-slide="17">
+<div class="slide" data-slide="20">
+    <div class="slide5">
+        <h2>利用PhantomJS分析CSS冗余</h2>
+    </div>
+</div>
+<div class="slide" data-slide="21">
     <div class="slide2">
         <h2>利用PhantomJS自动化分析CSS冗余</h2>
         <ul>
@@ -526,7 +554,7 @@ img.hide[data-animate="moveUp"] {
         <h3 class="hide" data-animate="bounceInUp">于是就有了css-redundance——一个快速分析CSS冗余的工具。</h3>
     </div>
 </div>
-<div class="slide" data-slide="18">
+<div class="slide" data-slide="22">
     <div class="slide2">
         <h2>简单例子</h2>
         <div class="hide" data-animate="zoomIn">
@@ -544,25 +572,25 @@ img.hide[data-animate="moveUp"] {
         <p class="hide" data-animate="fadeIn">输出的<a href="./example/review.html" target="_blank">报告效果>>>></a></p>
     </div>
 </div>
-<div class="slide" data-slide="19">
-    <div class="slide2">
-        <h2>输出报告</h2>
+<div class="slide" data-slide="23">
+    <div class="slide5">
+        <h2>利用PhantomJS进行SEO</h2>
     </div>
 </div>
-<div class="slide" data-slide="20">
+<div class="slide" data-slide="24">
     <div class="slide2">
         <h2>SEO</h2>
         <p class="hide" data-animate="fadeIn">AJAX站点盛行的今天，SEO成为各AJAX站点心中的痛，由于数据在页面加载后通过AJAX产生，爬虫无法通过直接抓去页面得到网站的所有信息，往往这些网站的SEO只能用惨不忍睹来形容。</p>
         <p class="hide" data-animate="fadeIn">对于搜索引擎的老大 —— Google，也很是头疼，他们提出了一种AJAX页面的抓去方案。</p>
     </div>
 </div>
-<div class="slide" data-slide="21">
+<div class="slide" data-slide="25">
     <div class="slide2">
         <h2>Google的方案</h2>
         <img class="hide" data-animate="fadeIn" src="./img/google.png">
     </div>
 </div>
-<div class="slide" data-slide="22">
+<div class="slide" data-slide="26">
     <div class="slide2">
         <h2>Google的方案</h2>
         <ul>
@@ -579,14 +607,14 @@ img.hide[data-animate="moveUp"] {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="23">
+<div class="slide" data-slide="27">
     <div class="slide2">
         <h2>SEO Server</h2>
         <img class="hide" data-animate="fadeIn" src="./img/seoserver.png">
         <p class="hide" data-animate="fadeIn">通过User Agent分辨正常用户还是爬虫，将爬虫转给SEO Server，让SEO Server返回指定页面的快照</p>
     </div>
 </div>
-<div class="slide" data-slide="24">
+<div class="slide" data-slide="28">
     <div class="slide2">
         <h2>简单快照生成</h2>
         <div class="hide" data-animate="zoomIn">
@@ -618,7 +646,7 @@ img.hide[data-animate="moveUp"] {
         </div>
     </div>
 </div>
-<div class="slide" data-slide="25">
+<div class="slide" data-slide="29">
     <div class="slide2">
         <h2>PhantomJS输出DOM的时机</h2>
         <p class="hide" data-animate="fadeIn">由于页面绘制完成时间并非DOM onload事件触发时间，我们没有合适的基准点来让PhantomJS输出DOM，所以有下面两种方案解决这一问题：</p>
@@ -628,13 +656,13 @@ img.hide[data-animate="moveUp"] {
         </ul>
     </div>
 </div>
-<div class="slide" data-slide="26">
+<div class="slide" data-slide="30">
     <div class="slide2">
         <h2>或许有更好的方案……</h2>
         <p class="hide" data-animate="fadeIn">PhantomJS提供了<code>onResourceRequested</code>，<code>onResourceReceived</code>接口，使得我们能监听到资源加载的情况，在通过合适的检查时间来找到最适合的PhantomJS输出DOM的时机。</p>
     </div>
 </div>
-<div class="slide" data-slide="27">
+<div class="slide" data-slide="31">
     <div class="slide4">
         <h2>Question</h2>
     </div>
