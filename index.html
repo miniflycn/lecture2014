@@ -241,11 +241,12 @@ img.hide[data-animate="moveUp"] {
 <div class="slide" data-slide="2">
     <div class="slide2">
         <h2>那么PhantomJS有啥用呢？</h2>
+        <img src="./img/ask.png" class="hide" data-animate="bounceIn">
         <ul>
-            <li class="hide" data-animate="fadeIn">无界面网站测试：<p>利用Mocha、Jasmine等测试框架进行自动化功能测试。</p></li>
-            <li class="hide" data-animate="fadeIn">网站截图：<p>得到页面的内容，创建页面的截图或者缩略图预览。</p></li>
-            <li class="hide" data-animate="fadeIn">页面自动化：<p>访问和操作页面的DOM API等Javascript API，并可以支持jQuery之类的浏览器端框架。</p></li>
-            <li class="hide" data-animate="fadeIn">页面监控：<p>自动化监控页面载入，并输出标准的HAR文件，用于自动化性能分析。</p></li>
+            <li class="hide" data-animate="fadeIn">无界面网站测试</li>
+            <li class="hide" data-animate="fadeIn">网站截图</li>
+            <li class="hide" data-animate="fadeIn">页面自动化</li>
+            <li class="hide" data-animate="fadeIn">页面监控</li>
         </ul>
     </div>
 </div>
@@ -422,7 +423,8 @@ img.hide[data-animate="moveUp"] {
 <div class="slide" data-slide="11">
     <div class="slide2">
         <h2>Sample</h2>
-        <a href="/Users/apple/webkit-dwarf-simple" target="_blank">webkit-dwarf-simple</a>
+        <img src="./img/go.gif" class="hide" data-animate="fadeIn"/>
+        <a href="/Users/apple/webkit-dwarf-simple" class="hide" data-animate="fadeIn" target="_blank">webkit-dwarf-simple</a>
     </div>
 </div>
 <div class="slide" data-slide="12">
@@ -434,19 +436,13 @@ img.hide[data-animate="moveUp"] {
     <div class="slide2">
         <h2>我们有什么办法给网站截图？</h2>
         <ul>
-            <li class="hide" data-animate="fadeIn">用截图软件，例如QQ：
-                <p>给比较长的网页截图时候，只能手动拼接来输出整个页面</p>
-            </li>
-            <li class="hide" data-animate="fadeIn">html2canvas：
-                <p>非浏览器原生，利用canvas将当前页面画出来，可能有些CSS样式不支持</p>
-            </li>
-            <li class="hide" data-animate="fadeIn">IECapt：
-                <p>利用IE内核，不能跨平台</p>
-            </li>
-            <li class="hide" data-animate="fadeIn">使用PhantomJS：
-                <p>原生支持，非常快，输出的是Webkit浏览器的真实效果</p>
-            </li>
+            <li class="hide" data-animate="fadeIn">用截图软件，例如QQ</li>
+            <li class="hide" data-animate="fadeIn">html2canvas</li>
+            <li class="hide" data-animate="fadeIn">IECapt</li>
+            <li class="hide" data-animate="fadeIn">使用PhantomJS</li>
         </ul>
+        <h3 class="hide" data-animate="bounceInUp">那么他们有什么不同呢？</h3>
+        <img src="./img/go.gif" class="hide" data-animate="fadeIn">
         <h3 class="hide" data-animate="bounceInUp">Let's go!!!!!!!!!!</h3>
     </div>
 </div>
@@ -570,6 +566,7 @@ img.hide[data-animate="moveUp"] {
             </pre>
         </div>
         <p class="hide" data-animate="fadeIn">输出的<a href="./example/review.html" target="_blank">报告效果>>>></a></p>
+        <p class="hide" data-animate="fadeIn">目前css-redundance还不能准确的找出页面冗余，我们目前只能将其作为代码Review工具使用。</p>
     </div>
 </div>
 <div class="slide" data-slide="23">
@@ -649,20 +646,29 @@ img.hide[data-animate="moveUp"] {
 <div class="slide" data-slide="29">
     <div class="slide2">
         <h2>PhantomJS输出DOM的时机</h2>
-        <p class="hide" data-animate="fadeIn">由于页面绘制完成时间并非DOM onload事件触发时间，我们没有合适的基准点来让PhantomJS输出DOM，所以有下面两种方案解决这一问题：</p>
+        <p class="hide" data-animate="fadeIn">输出DOM时机的两种方案：</p>
         <ul>
             <li class="hide" data-animate="fadeIn">对所有页面改造，在逻辑上确定页面渲染完毕后回调一个方法，然后利用PhantomJS预先注册该方法，找到合适的渲染时机。该方案比较精确但改造成本较高。</li>
-            <li class="hide" data-animate="fadeIn">对所有页面改造，在逻辑上确定页面渲染完毕后回调一个方法，然后利用PhantomJS预先注册该方法，找到合适的渲染时机。该方案比较精确但改造成本较高。</li>
+            <li class="hide" data-animate="fadeIn">通过setTimeout足够时间，例如30s，认为30s后完整的页面已经返回，但是我们不能排除网络异常的情况。</li>
         </ul>
+        <img src="./img/no.jpg" class="hide" data-animate="fadeIn">
+        <h3 class="hide" data-animate="fadeIn">都不完美啊～～～</h3>
     </div>
 </div>
 <div class="slide" data-slide="30">
     <div class="slide2">
-        <h2>或许有更好的方案……</h2>
-        <p class="hide" data-animate="fadeIn">PhantomJS提供了<code>onResourceRequested</code>，<code>onResourceReceived</code>接口，使得我们能监听到资源加载的情况，在通过合适的检查时间来找到最适合的PhantomJS输出DOM的时机。</p>
+        <h2>更好的方案……</h2>
+        <p class="hide" data-animate="fadeIn">PhantomJS提供了<code>onResourceRequested</code>，<code>onResourceReceived</code>接口，使得我们能监听到资源加载的情况，在通过合适的检查时间来找到最适合的PhantomJS输出DOM的时机。目前我们正在朝这个方向探索中。</p>
+        <img src="./img/ok.png" class="hide" data-animate="fadeIn">
+        <h3 class="hide" data-animate="fadeIn">干巴爹吧～～～</h3>
     </div>
 </div>
 <div class="slide" data-slide="31">
+    <div class="slide5">
+        <h2>利用PhantomJS进行网络监控</h2>
+    </div>
+</div>
+<div class="slide" data-slide="32">
     <div class="slide4">
         <h2>Question</h2>
     </div>
